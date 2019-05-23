@@ -1,20 +1,18 @@
 # headache
-High Efficiency Astronomical Data Analysis with CHic Elegance
+**H**igh **E**fficiency **A**stronomical **D**ata **A**nalysis with **CH**ic Elegance
 
 ## installation
 
-`python setup.py install` (either python2 or python3)
+`python setup.py install`
+
+with either `python2` or `python3`
 
 ## requirements
 
 - argparse
-
 - numpy
-
 - scipy
-
 - matplotlib
-
 - astropy
 
 
@@ -183,6 +181,10 @@ OUT_NAME        image.eps      # filename for figure output
 ### `headache.toolkits_vlbi`
 
 toolkits for VLBI analysis
+
+#### `get_ridgeline`
+
+compute and plot the ridgline of AGN jets
 
 - run as a function
 
