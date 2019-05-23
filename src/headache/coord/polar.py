@@ -1,15 +1,10 @@
+#! /usr/bin/env python
 # -*- coding: utf-8 -*-
-
-from __future__ import absolute_import
-from __future__ import division
-# from __future__ import print_function
-from __future__ import unicode_literals
 
 import numpy as np
 from scipy.ndimage import map_coordinates
-from scipy.ndimage.interpolation import shift
-from scipy.optimize import curve_fit, minimize
 
+__all__ = ['reproject_image_into_polar', 'cart2polar', 'polar2cart']
 
 def reproject_image_into_polar(data, origin=None, Jacobian=False,
                                dr=1, dt=None):

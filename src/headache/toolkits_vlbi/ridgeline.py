@@ -1,32 +1,17 @@
 #! /usr/bin/env python
-# coding=utf-8
+# -*- coding: utf-8 -*-
 
 from __future__ import print_function
 
 """
-A program for finding the ridgeline in astronomical images.
+    ridgeline
+    ---------
 
-Copyright (C) 2019 Jun LIU
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    a sub-module for toolkits_vlbi, to look for ridgline in AGN jets
 
 """
 
-__author__ = 'Jun LIU (jliu@mpifr-bonn.mpg.de)'
-__copyright__ = 'Copyright (c) 2019 Jun LIU'
-__date__ = '2019-02-24'
-__version__ = 1.6
+
 import os
 import argparse
 import numpy as  np
@@ -38,9 +23,13 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 from matplotlib.ticker import MultipleLocator, LogLocator
 from scipy.interpolate import interp1d
 
-from Jun_PyLibs import polar, fits_utils
-from Jun_PyLibs import PlotSettings as jpps
-jpps.theme('sci')
+#from ..coord import polar
+#from .. import fits_utils
+#from ..plotter import set_theme
+from headache.coord import polar
+from headache import fits_utils
+from headache.plotter import set_theme
+set_theme('sci')
 
 
 def main():
@@ -469,7 +458,25 @@ def get_ridgeline(infits,
         plt.savefig(outname+'_polar.eps', bbox_inches='tight')
         plt.close('all')
 
+__all__ = ['get_ridgeline']
 
 if __name__ == '__main__':
 
-    main()
+    get_ridgeline('fitsfile',
+                  core = None,
+                  method = 'equal',
+                  onesided = True,
+                  pa = 45,
+                  dpa = 90,
+                  dpa_iter = 20,
+                  noise = 0.0003,
+                  detect_thresh = 5,
+                  min_radius = 0,
+                  max_radius = 160,
+                  step = 5,
+                  smooth = 5,
+                  out_data = None,
+                  plot_fig = True,
+                  plot_thresh = 3,
+                  plot_window = [2, -2, -1.4, 2.4])
+
