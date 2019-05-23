@@ -76,7 +76,7 @@ submodule for plotting (using matplotlib)
 
 ### `fits_utils`
 
-submodule for operating and plotting fits image, can also run as an executive, e.g.
+submodule for operating and plotting fits image, can also run as an executable, e.g.
 
 ```bash
 ./fits_utils -d > plot.inp   # to dump a default configuration file for plotting
@@ -84,7 +84,7 @@ submodule for operating and plotting fits image, can also run as an executive, e
 ```
 
 The default configuration is showing bellow
-```
+```bash
 # Default setup file for fits_utils v2.2
 # Jun Liu 2019-01-18
 #
@@ -188,13 +188,15 @@ compute and plot the ridgline of AGN jets
 
 - run as a function
 
-`get_ridgeline(infits, core = None, method = 'peak', onesided = True, pa = 0,
+```python
+get_ridgeline(infits, core = None, method = 'peak', onesided = True, pa = 0,
                dpa = 30, dpa_iter = 60, noise = 0, detect_thresh = 3,
                min_radius = 0, max_radius = 0, step = 5, smooth = 5,
-               out_data = None, plot_fig = True, plot_thresh = 3, plot_window = None)`
+               out_data = None, plot_fig = True, plot_thresh = 3, plot_window = None)
+```
 
 - run as an executable
-```
+```bash
 usage: ridgeline.py [-h] -i image.fits [-c None] [-m equal] [--ts] [-pa 0.0]
                     [-dpa 90.0] [-dpai 60.0] [-noise 0] [-dthresh 10.0]
                     [-rmin 0.0] [-rmax 120.0] [-step 5] [-smooth 5] [-o None]
