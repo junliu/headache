@@ -1,6 +1,23 @@
 # headache
 High Efficiency Astronomical Data Analysis with CHic Elegance
 
+## installation
+
+`python setup.py install` (either python2 or python3)
+
+## requirements
+
+- argparse
+
+- numpy
+
+- scipy
+
+- matplotlib
+
+- astropy
+
+
 ## submodules and functions
 
 
