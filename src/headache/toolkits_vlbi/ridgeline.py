@@ -1,7 +1,29 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# Copyright (c) 2019 Jun Liu <jliu@mpifr-bonn.mpg.de>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 from __future__ import print_function
+
+__author__ = 'Jun LIU'
+__copyright__ = 'Copyright (c) 2019 Jun Liu <jliu@mpifr-bonn.mpg.de>'
+__license__ = 'GPL v3'
+__version__ = '1.6'
+
+
 
 """
     ridgeline
@@ -23,9 +45,6 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 from matplotlib.ticker import MultipleLocator, LogLocator
 from scipy.interpolate import interp1d
 
-#from ..coord import polar
-#from .. import fits_utils
-#from ..plotter import set_theme
 from headache.coord import polar
 from headache import fits_utils
 from headache.plotter import set_theme
@@ -462,21 +481,22 @@ __all__ = ['get_ridgeline']
 
 if __name__ == '__main__':
 
-    get_ridgeline('fitsfile',
-                  core = None,
-                  method = 'equal',
-                  onesided = True,
-                  pa = 45,
-                  dpa = 90,
-                  dpa_iter = 20,
-                  noise = 0.0003,
-                  detect_thresh = 5,
-                  min_radius = 0,
-                  max_radius = 160,
-                  step = 5,
-                  smooth = 5,
-                  out_data = None,
-                  plot_fig = True,
-                  plot_thresh = 3,
-                  plot_window = [2, -2, -1.4, 2.4])
+    main()
+    # get_ridgeline('fitsfile',
+    #               core = None,
+    #               method = 'equal',
+    #               onesided = True,
+    #               pa = 45,
+    #               dpa = 90,
+    #               dpa_iter = 20,
+    #               noise = 0.0003,
+    #               detect_thresh = 5,
+    #               min_radius = 0,
+    #               max_radius = 160,
+    #               step = 5,
+    #               smooth = 5,
+    #               out_data = None,
+    #               plot_fig = True,
+    #               plot_thresh = 3,
+    #               plot_window = [2, -2, -1.4, 2.4])
 

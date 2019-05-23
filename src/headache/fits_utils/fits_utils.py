@@ -1,5 +1,31 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
+# coding=utf-8
+
+
+"""
+A program for plotting FITS image using python modules.
+
+Copyright (C) 2019 Jun LIU
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+"""
+
+__author__ = 'Jun LIU (jliu@mpifr-bonn.mpg.de)'
+__copyright__ = 'Copyright (c) 2019 Jun LIU'
+__date__ = '2019-01-18'
+__version__ = 2.2
 
 import os
 import re
@@ -1060,8 +1086,6 @@ def main():
         pu = plot_utils(args.i)
         pu.run()
 
-__all__ = ['difmap_model', 'fits_image', 'plot_utils', 'config_parser', \
-           'line_creator', 'get_edgecolor', 'show_config', 'main']
 
 if __name__ == '__main__':
 
