@@ -1,14 +1,14 @@
 # headache
 High Efficiency Astronomical Data Analysis with CHic Elegance
 
-# submodules and functions
+## submodules and functions
 
 
-## `headache.io` 
+### `headache.io` 
 
 submodule for reading and writing various formats of data.
 
-### `headache.io.ascii`
+#### `headache.io.ascii`
 
 - `readcol(fname, cols=None, fmt=None, start=0, stop=0, comment='#', flag=True)`
 
@@ -24,11 +24,11 @@ srcname, mjd, flux, err = ascii.readcol('test.dat', cols=[0,3,4,5], fmt='sfff')
 write to an ascii file by column
 
 
-## `headache.coord`
+### `headache.coord`
 
 submodule for coordination transformation.
 
-### `headache.coord.polar`
+#### `headache.coord.polar`
 
 - `reproject_image_into_polar(data, origin=None, Jacobian=False, dr=1.0, dt=None)`
 
@@ -39,7 +39,7 @@ submodule for coordination transformation.
 - `polar2cart(r, theta, center)`
 
 
-## `headache.plotter`
+#### `headache.plotter`
 
 submodule for plotting (using matplotlib)
 
@@ -59,7 +59,7 @@ submodule for plotting (using matplotlib)
 
 - `set_theme('sci')`
 
-## `fits_utils`
+### `fits_utils`
 
 submodule for operating and plotting fits image, can also run as an executive, e.g.
 
@@ -163,7 +163,7 @@ OUT_NAME        image.eps      # filename for figure output
 #-------------------------------- END ----------------------------------------
 ```
 
-## `headache.toolkits_vlbi`
+### `headache.toolkits_vlbi`
 
 toolkits for VLBI analysis
 
