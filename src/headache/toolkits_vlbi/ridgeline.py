@@ -146,6 +146,8 @@ def ridgeline_init(imgobj, core, method, pa, dpa, dpa_iter,
 
     _core = core*1.0
     if method == 'peak':
+        if not _core:
+          _core = [0.0, 0.0]
         _core[0] += step*sin(Pa)*2
         _core[1] -= step*cos(Pa)*2
     pdata, rcrd, tcrd = polar.reproject_image_into_polar(imgobj.data,
@@ -236,15 +238,15 @@ def ridgeline_init(imgobj, core, method, pa, dpa, dpa_iter,
 
 def get_ridgeline(infits,
                   core = None,
-                  method = 'peak',
+                  method = 'equal',
                   onesided = True,
                   pa = 0,
-                  dpa = 30,
+                  dpa = 90,
                   dpa_iter = 60,
                   noise = 0,
-                  detect_thresh = 3,
+                  detect_thresh = 10,
                   min_radius = 0,
-                  max_radius = 0,
+                  max_radius = 120,
                   step = 5,
                   smooth = 5,
                   out_data = None,
