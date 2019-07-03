@@ -190,17 +190,17 @@ compute and plot the ridgline of AGN jets
 
 ```python
 get_ridgeline(infits, core = None, method = 'peak', onesided = True, pa = 0,
-               dpa = 30, dpa_iter = 60, noise = 0, detect_thresh = 3,
-               min_radius = 0, max_radius = 0, step = 5, smooth = 5,
-               out_data = None, plot_fig = True, plot_thresh = 3, plot_window = None)
+               dpa = 90, dpa_iter = 60, noise = 0, detect_thresh = 10,
+               min_radius = 0, max_radius = 120, step = 5, smooth = 5,
+               out_data = True, plot_fig = True, plot_thresh = 3, plot_window = None)
 ```
 
 - run as an executable
 ```bash
-usage: ridgeline.py [-h] -i image.fits [-c None] [-m equal] [--ts] [-pa 0.0]
+usage: ridgeline.py [-h] -i image.fits [-c None] [-m equal] [--side1] [-pa 0.0]
                     [-dpa 90.0] [-dpai 60.0] [-noise 0] [-dthresh 10.0]
-                    [-rmin 0.0] [-rmax 120.0] [-step 5] [-smooth 5] [-o None]
-                    [--noplot] [-pthresh 5.0] [-pw [2,-2,-2,2]]
+                    [-rmin 0.0] [-rmax 120.0] [-step 5] [-smooth 5] [--out]
+                    [--plot] [-pthresh 5.0] [-pw [2,-2,-2,2]]
 
 ridgeline.py   version 1.6 (2019-02-22)
 
@@ -213,9 +213,9 @@ under the terms of the GNU General Public License.
 optional arguments:
   -h, --help       show this help message and exit
   -i image.fits    input fits file
-  -c None          location of the core (list or None)
+  -c None          location of the core, in pixel, list or None. None: peak position of the image
   -m equal         method of ridgline finding, equal or peak
-  --ts             twosided jets
+  --sied1          onesided jet
   -pa 0.0          initial guess for jet position angle in deg.
   -dpa 90.0        deviation of PA in deg.
   -dpai 60.0       deviation of PA in each iteration
@@ -225,8 +225,8 @@ optional arguments:
   -rmax 120.0      maximum radius for ridgline detection (in pixel)
   -step 5          step for ridgline detection (in pixel)
   -smooth 5        smoothing for ridgline detection (in pixel)
-  -o None          output file name; None-> same as the input
-  --noplot         do not plot the image
+  --out            whether to save the ridgline into a text file
+  --noplot         whether to plot the ridgline
   -pthresh 5.0     factor*<noise> as lowest level to show the images
   -pw [2,-2,-2,2]  xyrange for image plotting
 ```

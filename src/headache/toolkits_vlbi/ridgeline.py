@@ -33,7 +33,6 @@ __version__ = '1.6'
 
 """
 
-
 import os
 import argparse
 import numpy as  np
@@ -63,13 +62,14 @@ def main():
     parser.add_argument('-i', dest='fitsname', required=True,
                         help='input fits file', metavar='image.fits')
     parser.add_argument('-c', dest='core', required=False, type=str,
-                        default='None', help='location of the core (list or None)',
+            default='None', help='location of the core in pixel, '
+            'list or None. None: peak position of the image',
                         metavar='None')
     parser.add_argument('-m', dest='method', required=False, type=str,
-                        default='equal', help='location of the core',
-                        metavar='equal')
-    parser.add_argument('--ts', dest='twosided', required=False,
-                        action='store_true', help='twosided jets')
+                        default='peak', help='location of the core',
+                        metavar='peak')
+    parser.add_argument('--side1', dest='onesided', required=True,
+                        action='store_true', help='onesided jets')
     parser.add_argument('-pa', dest='pa', required=False, type=float,
                         default=0.0, metavar=0.0,
                         help='initial guess for jet position angle in deg.')
@@ -97,12 +97,11 @@ def main():
     parser.add_argument('-smooth', dest='smooth', required=False, type=float,
                         default=5, metavar=5,
                         help='smoothing for ridgline detection (in pixel)')
-    parser.add_argument('-o', dest='out_data', required=False, type=str,
-                        default=None, metavar='None',
-                        help='output file name; None-> same as the input')
-    parser.add_argument('--noplot', dest='plot_fig', required=False,
+    parser.add_argument('-out', dest='out_data', required=True, action='store_true',
+                        help='whether to save the ridgline into a text file')
+    parser.add_argument('--plot', dest='plot_fig', required=True,
                         action='store_true',
-                        help='do not plot the image')
+                        help='whether to plot the resultant ridgeline')
     parser.add_argument('-pthresh', dest='plot_thresh', required=False,
                         type=float, default=5.0, metavar=5.0,
                         help='factor*<noise> as lowest level to show the images')
@@ -115,13 +114,10 @@ def main():
     if args.out_data == 'None':
         args.out_data = None
 
-    onesided = not args.twosided
-    plot_fig = not args.plot_fig
-
     get_ridgeline(args.fitsname,
                 core = eval(args.core),
                 method = args.method,
-                onesided = onesided,
+                onesided = args.onesided,
                 pa = args.pa,
                 dpa = args.dpa,
                 dpa_iter = args.dpa_iter,
@@ -132,7 +128,7 @@ def main():
                 step = args.step,
                 smooth = args.smooth,
                 out_data = args.out_data,
-                plot_fig = plot_fig,
+                plot_fig = args.plot_fig,
                 plot_thresh = args.plot_thresh,
                 plot_window = eval(args.plot_window))
 
@@ -146,8 +142,6 @@ def ridgeline_init(imgobj, core, method, pa, dpa, dpa_iter,
 
     _core = core*1.0
     if method == 'peak':
-        if not _core:
-          _core = [0.0, 0.0]
         _core[0] += step*sin(Pa)*2
         _core[1] -= step*cos(Pa)*2
     pdata, rcrd, tcrd = polar.reproject_image_into_polar(imgobj.data,
@@ -249,7 +243,7 @@ def get_ridgeline(infits,
                   max_radius = 120,
                   step = 5,
                   smooth = 5,
-                  out_data = None,
+                  out_data = True,
                   plot_fig = True,
                   plot_thresh = 3,
                   plot_window = None):
@@ -337,32 +331,28 @@ def get_ridgeline(infits,
 
         switch += 1
 
-    if not out_data:
-        outname = os.path.splitext(os.path.basename(infits))[0]
-    else:
-        outname = os.path.splitext(out_data)[0]
+    if out_data:
+      rw = (ridge_x**2 + ridge_y**2)**0.5
+      outf = open(outname+'.ridge.txt', 'w')
+      print('%s%9s %10s %10s %8s %8s  %8s' \
+              %('#', 'ridge_x', 'ridge_y', 'r', 'PA', 'ridge_a', 'ridge_b'),\
+              file=outf)
+      for (a, b, c, d, e, f) in zip(ridge_x, ridge_y, rw,
+                                    rad2deg(ridge_t), ridge_a, ridge_b):
+          print('%10.6f %10.6f %10.6f %8.2f %8.1f %8.1f' \
+                  %(a, b, c, d, e, f), file=outf)
+      outf.close()
 
-    rw = (ridge_x**2 + ridge_y**2)**0.5
-    outf = open(outname+'.ridge.txt', 'w')
-    print('%s%9s %10s %10s %8s %8s  %8s' \
-            %('#', 'ridge_x', 'ridge_y', 'r', 'PA', 'ridge_a', 'ridge_b'),\
-            file=outf)
-    for (a, b, c, d, e, f) in zip(ridge_x, ridge_y, rw,
-                                  rad2deg(ridge_t), ridge_a, ridge_b):
-        print('%10.6f %10.6f %10.6f %8.2f %8.1f %8.1f' \
-                %(a, b, c, d, e, f), file=outf)
-    outf.close()
-
-    lrw = (ridge_lx**2 + ridge_ly**2)**0.5
-    outf = open(outname+'.ridge_smooth.txt', 'w')
-    print('%s%9s %10s %10s %8s %8s  %8s' \
-        %('#', 'ridge_sx', 'ridge_sy', 'r', 'sPA', 'ridge_sa', 'ridge_sb'),\
-        file=outf)
-    for (a, b, c, d, e, f) in zip(ridge_lx, ridge_ly, lrw,
-                                  rad2deg(ridge_lt), ridge_la, ridge_lb):
-        print('%10.6f %10.6f %10.6f %8.2f %8.1f %8.1f' \
-                %(a, b, c, d, e, f), file=outf)
-    outf.close()
+      lrw = (ridge_lx**2 + ridge_ly**2)**0.5
+      outf = open(outname+'.ridge_smooth.txt', 'w')
+      print('%s%9s %10s %10s %8s %8s  %8s' \
+          %('#', 'ridge_sx', 'ridge_sy', 'r', 'sPA', 'ridge_sa', 'ridge_sb'),\
+          file=outf)
+      for (a, b, c, d, e, f) in zip(ridge_lx, ridge_ly, lrw,
+                                    rad2deg(ridge_lt), ridge_la, ridge_lb):
+          print('%10.6f %10.6f %10.6f %8.2f %8.1f %8.1f' \
+                  %(a, b, c, d, e, f), file=outf)
+      outf.close()
 
     ##################################################
     # plot the image and ridgeline
@@ -484,21 +474,3 @@ __all__ = ['get_ridgeline']
 if __name__ == '__main__':
 
     main()
-    # get_ridgeline('fitsfile',
-    #               core = None,
-    #               method = 'equal',
-    #               onesided = True,
-    #               pa = 45,
-    #               dpa = 90,
-    #               dpa_iter = 20,
-    #               noise = 0.0003,
-    #               detect_thresh = 5,
-    #               min_radius = 0,
-    #               max_radius = 160,
-    #               step = 5,
-    #               smooth = 5,
-    #               out_data = None,
-    #               plot_fig = True,
-    #               plot_thresh = 3,
-    #               plot_window = [2, -2, -1.4, 2.4])
-
