@@ -332,6 +332,7 @@ def get_ridgeline(infits,
         switch += 1
 
     if out_data:
+      outname = os.path.splitext(os.path.basename(infits))[0]
       rw = (ridge_x**2 + ridge_y**2)**0.5
       outf = open(outname+'.ridge.txt', 'w')
       print('%s%9s %10s %10s %8s %8s  %8s' \
