@@ -226,7 +226,7 @@ optional arguments:
   -step 5          step for ridgline detection (in pixel)
   -smooth 5        smoothing for ridgline detection (in pixel)
   --out            whether to save the ridgline into a text file
-  --noplot         whether to plot the ridgline
+  --plot           whether to plot the ridgline
   -pthresh 5.0     factor*<noise> as lowest level to show the images
   -pw [2,-2,-2,2]  xyrange for image plotting
 ```
