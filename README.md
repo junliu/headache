@@ -214,7 +214,7 @@ optional arguments:
   -h, --help       show this help message and exit
   -i image.fits    input fits file
   -c None          location of the core (list or None)
-  -m equal         location of the core
+  -m equal         method of ridgline finding, equal or peak
   --ts             twosided jets
   -pa 0.0          initial guess for jet position angle in deg.
   -dpa 90.0        deviation of PA in deg.
