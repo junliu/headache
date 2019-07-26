@@ -21,4 +21,4 @@ __copyright__ = 'Copyright (c) 2017-2019 Jun LIU <jliu@mpifr-bonn.mpg.de>\n' +\
 __license__ = 'GPL v3'
 __version__ = '2.6.0'
 
-from plot_settings import *
+from .plot_settings import *

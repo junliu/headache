@@ -19,4 +19,4 @@ __license__ = 'GPL v3'
 __module__ = 'fits_utils'
 __version__ = '2.2'
 
-from fits_utils import *
+from .fits_utils import *

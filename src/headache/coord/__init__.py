@@ -18,5 +18,5 @@ __copyright__ = 'Copyright (c) 2017-2019 Jun LIU <jliu@mpifr-bonn.mpg.de>'
 __license__ = 'GPL v3'
 __version__ = '1.1.0'
 
-from polar import *
+from .polar import *
 __all__ = ['reproject_image_into_polar', 'cart2polar', 'polar2cart']

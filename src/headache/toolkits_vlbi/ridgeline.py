@@ -44,9 +44,9 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 from matplotlib.ticker import MultipleLocator, LogLocator
 from scipy.interpolate import interp1d
 
-from headache.coord import polar
-from headache import fits_utils
-from headache.plotter import set_theme
+from .coord import polar
+from . import fits_utils
+from .plotter import set_theme
 set_theme('sci')
 
 

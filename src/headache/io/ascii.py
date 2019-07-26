@@ -58,7 +58,7 @@ def type_specify(string):
     elif string == 'S':
         dtype = str
     else:
-        print 'Wrong data format, use i, f, or s'
+        print('Wrong data format, use i, f, or s')
         return
 
     return dtype
@@ -117,20 +117,11 @@ def readcol(fname, cols=None, fmt=None,
     if ncol == len(dfmt) + 1: dfmt.insert(0, str)
 
     data = [range(n) for _ in range(ncol)]
-#    if flag:
-    for i in xrange(n):
+    for i in range(n):
         line = lines[i].split()
-        for j in xrange(ncol):
+        for j in range(ncol):
             col = cols[j]
             data[j][i] = dfmt[j](line[col])
-#    else:
-#        for i in xrange(n):
-#            line = lines[i].split()
-#            if line[0] != comment: line.insert(0, ' ')
-#            for j in xrange(ncol):
-#                col = cols[j]
-#                print line[col]
-#                data[j][i] = dfmt[j](line[col])
 
     # convert the data into numpy arrays
     for i in range(len(data)):
@@ -156,9 +147,9 @@ def writecol(fname, hdr, tail, data, fmt):
     if hdr:
         print >> fobj, hdr
 
-    for i in xrange(nline):
+    for i in range(nline):
         dlist = []
-        for j in xrange(ncol):
+        for j in range(ncol):
             dlist.append(data[j][i])
         dtuple = tuple(dlist)
         print >> fobj, fmt %dtuple

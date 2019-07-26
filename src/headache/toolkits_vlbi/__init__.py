@@ -22,4 +22,4 @@ __copyright__ = 'Copyright (c) 2017-2019 Jun LIU <jliu@mpifr-bonn.mpg.de>'
 __license__ = 'GPL v3'
 __version__ = '1.6.0'
 
-from ridgeline import *
+from .ridgeline import *
