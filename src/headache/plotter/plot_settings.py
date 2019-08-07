@@ -149,7 +149,7 @@ def set_theme(sty='sci'):
         rc['axes.labelsize'] = 1.2*fs
         rc['axes.grid'] = False
         rc['axes.linewidth'] = 1.0
-        rc['grid.color'] = 'none'
+        rc['grid.color'] = 'gray'
         rc['grid.linewidth'] = 0.8
         rc['image.cmap'] = 'jet'
 

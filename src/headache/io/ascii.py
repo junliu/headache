@@ -66,10 +66,10 @@ def type_specify(string):
 
 def readcol(fname, cols=None, fmt=None,
                     start=0, stop=0,
-                    comment='#', sep=None, flag=True):
+                    comment='#', delimiter=None, flag=True):
     """
     readcol(fname, cols=None, fmt=None,
-            start=0, stop=0, comment='#', sep=None, flag=True):
+            start=0, stop=0, comment='#', delimiter=None, flag=True):
 
     """
 
@@ -84,7 +84,7 @@ def readcol(fname, cols=None, fmt=None,
         lines = [line if line.strip()[0]!=comment else line.strip()[1:] for line in lines]
 
     if not cols:
-        tmp = lines[0].split(sep)
+        tmp = lines[0].split(delimiter)
         ncol = len(tmp)
 #        if flag: ncol = len(tmp)
 #        else:
@@ -103,7 +103,7 @@ def readcol(fname, cols=None, fmt=None,
 
     if not fmt:
         dfmt = []
-        line = lines[0].split(sep)
+        line = lines[0].split(delimiter)
         if len(line) < ncol: line.insert(0, '#')
         for i in cols:
             dfmt.append(type_guess(line[i]))
@@ -117,10 +117,10 @@ def readcol(fname, cols=None, fmt=None,
 
     data = [list(range(n)) for _ in range(ncol)]
     for i in range(n):
-        line = lines[i].split(sep)
+        line = lines[i].split(delimiter)
         for j in range(ncol):
             col = cols[j]
-            data[j][i] = dfmt[j](line[col])
+            data[j][i] = dfmt[j](line[col].lstrip().rstrip())
 
     # convert the data into numpy arrays
     for i in range(ncol):
@@ -134,6 +134,11 @@ def readcol(fname, cols=None, fmt=None,
 
 
 def writecol(fname, hdr, tail, data, fmt):
+    """
+    writecol(fname, hdr=None, tail=None,
+            data, fmt):
+
+    """
 
     ncol = len(data)
     try:
