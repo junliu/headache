@@ -16,6 +16,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from __future__ import absolute_import, division, print_function
+
 """
   module ascii
 
@@ -152,17 +154,17 @@ def writecol(fname, hdr, tail, data, fmt):
 
     fobj = open(fname, 'w')
     if hdr:
-        print >> fobj, hdr
+        print(hdr, file=fobj)
 
     for i in range(nline):
         dlist = []
         for j in range(ncol):
             dlist.append(data[j][i])
         dtuple = tuple(dlist)
-        print >> fobj, fmt %dtuple
+        print(fmt %dtuple, file=fobj)
 
     if tail:
-        print >> fobj, tail
+        print(tail, file=fobj)
 
     fobj.close()
 

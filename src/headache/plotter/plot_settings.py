@@ -139,9 +139,9 @@ def set_theme(sty='sci'):
     rc['savefig.bbox'] = 'tight'
     rc['axes.facecolor'] = 'white'
     rc['axes.edgecolor'] = 'black'
+    set_color_palette('tab10')
 
-    def default():
-        fs = 10
+    def default(fs=10):
         set_fontsize(fs)
         set_linewidth(1.5)
         set_ticks(3, True)
@@ -155,7 +155,7 @@ def set_theme(sty='sci'):
 
     if sty == 'sci':
         style.use('seaborn-bright')
-        default()
+        default(fs=rc['font.size'])
 
     elif sty == 'tech':
         style.use('seaborn-dark')
@@ -170,9 +170,9 @@ def set_theme(sty='sci'):
         rc['grid.linewidth'] = 1.5
 
     elif sty == 'normal':
-        set_theme('sci')
         fs = 12
         set_fontsize(fs)
+        set_theme('sci')
         set_linewidth(1)
         set_ticks(2, True)
         rc['legend.fontsize'] = fs
