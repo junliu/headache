@@ -146,7 +146,7 @@ def set_theme(sty='sci'):
         set_linewidth(1.5)
         set_ticks(3, True)
         rc['legend.fontsize'] = 0.9*fs
-        rc['axes.labelsize'] = 1.2*fs
+        rc['axes.labelsize'] = 1.1*fs
         rc['axes.grid'] = False
         rc['axes.linewidth'] = 1.0
         rc['grid.color'] = 'gray'
