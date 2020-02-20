@@ -2,17 +2,16 @@
 # -*- coding: utf-8 -*-
 
 import os
-from distutils.core import setup
+from distutils.core import setup, Extension
 
 name = 'headache'
-version = '1.1.0'
+version = '1.1.1'
 description = \
 'HEADACHE: High Efficiency Astronomical Data Analysis with Chic Elegance'
-package_dir = {'':'src'}
-packages = [''] + os.listdir('src/'+name)
-packages = [name + '/' + p for p in packages]
-packages = [p for p in packages if os.path.isdir(package_dir['']+'/'+p)]
-
+package_dir = {name:'src'}
+packages = os.listdir(package_dir[name])
+packages = [name+'.'+p for p in packages if os.path.isdir(package_dir[name]+'/'+p)]
+packages.insert(0, name)
 
 setup(name = name,
     version = version,
@@ -27,4 +26,3 @@ setup(name = name,
     long_description = open('README.md').read(),
     long_description_content_type = 'text/markdown'
 )
-

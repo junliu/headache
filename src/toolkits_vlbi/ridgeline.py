@@ -44,9 +44,9 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 from matplotlib.ticker import MultipleLocator, LogLocator
 from scipy.interpolate import interp1d
 
-from .coord import polar
-from . import fits_utils
-from .plotter import set_theme
+from ..coord import polar
+from .. import fits_utils
+from ..plotter import set_theme
 set_theme('sci')
 
 
@@ -107,7 +107,7 @@ def main():
                         help='factor*<noise> as lowest level to show the images')
     parser.add_argument('-pw', dest='plot_window', required=False, type=str,
                         default='[2,-2,-2,2]', metavar='[2,-2,-2,2]',
-                        help='xyrange for image plotting')
+                        help='xyrange for image plotting in unit mas')
     args = parser.parse_args()
 
 
@@ -296,7 +296,8 @@ def get_ridgeline(infits,
         rt = np.append(rt, rt[-1])
 
         fsmooth = interp1d(rr, rt, kind='cubic')
-        _ridge_lr = np.arange(_ridge_r.min(), _ridge_r.max(), step/2.0)
+#        _ridge_lr = np.arange(_ridge_r.min(), _ridge_r.max(), step/2.0)
+        _ridge_lr = np.arange(rr.min(), rr.max(), step/2.0)
         _ridge_lt = fsmooth(_ridge_lr)
         _ridge_la, _ridge_lb = polar.polar2cart(_ridge_lr, _ridge_lt, core)
         _ridge_lx, _ridge_ly = \
@@ -394,6 +395,7 @@ def get_ridgeline(infits,
 
         ax.set_xlabel('relative RA (mas)')
         ax.set_ylabel('relative Dec (mas)')
+        ax.set_xlim(xcrd.max(), xcrd.min())
         if plot_window:
             ax.set_xlim(plot_window[0], plot_window[1])
             ax.set_ylim(plot_window[2], plot_window[3])
