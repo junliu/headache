@@ -121,7 +121,7 @@ def DCF_EK(ts0, ts1, bs, lgl=None, lgh=None):
 
 def MDCF_EK(ts0, ts1, bs, lgl=None, lgh=None):
 
-  """Discrete correlation function via the modified Edelson-Krolik method
+  """Modified Discrete correlation function via the modified Edelson-Krolik method
 
     Parameters
     ----------
@@ -145,7 +145,7 @@ def MDCF_EK(ts0, ts1, bs, lgl=None, lgh=None):
     bins : ndarray
         bin edges used in computation
 
-  DCF_EK(ts0, ts01, bs, lgl=None, lgh=None)
+  MDCF_EK(ts0, ts01, bs, lgl=None, lgh=None)
   discrete correlation function via Edelson & Krolik (1988) algorithm.
 
   ts0 - the first time series (t0, y0, dy0)
@@ -186,7 +186,11 @@ def MDCF_EK(ts0, ts1, bs, lgl=None, lgh=None):
 
   bins = np.array([])
   dt = t0 - t1[:,None]
-  udcf = (y0-mu0)*(y1-mu1)[:,None]
+  flt_t0 = (dt>=-bs/2)*(dt<=bs/2)
+  udcf0 = (y0-mu0)*(y0-mu0)[:,None]
+  udcf1 = (y1-mu1)*(y1-mu1)[:,None]
+  udcf_norm = (udcf0[flt_t0].mean()*udcf1[flt_t0].mean())**0.5
+  udcf = (y0-mu0)*(y1-mu1)[:,None]/udcf_norm
   bins = np.append(np.flip(np.arange(-bs/2., lgl, -bs)), np.arange(bs/2., lgh, bs))
 
   vdcf = np.zeros(len(bins)-1)
@@ -197,7 +201,8 @@ def MDCF_EK(ts0, ts1, bs, lgl=None, lgh=None):
     if True in flag:
       m[i] = flag.sum()
       vdcf[i] = np.mean(udcf[flag])
-      ddcf[i] = np.std(udcf[flag])/m[i]**0.5 # standard error
+#      ddcf[i] = np.std(udcf[flag])/m[i]**0.5 # standard error
+      ddcf[i] = np.std(udcf[flag])
 
   return (bins[:-1]+bins[1:])/2., vdcf, ddcf
 
