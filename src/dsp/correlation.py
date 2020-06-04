@@ -184,12 +184,16 @@ def MDCF_EK(ts0, ts1, bs, lgl=None, lgh=None):
   s1 = np.std(y1, ddof=1)
   mu1 = np.mean(y1)
 
+  dt0 = t0 - t0[:,None]
+  flt_dt0 = (dt0>=-bs/2)*(dt0<=bs/2)
+  udcf0 = (y0-mu0)*(y0-mu0)[:,None]
+  dt1 = t1 - t1[:,None]
+  flt_dt1 = (dt1>=-bs/2)*(dt1<=bs/2)
+  udcf1 = (y1-mu1)*(y1-mu1)[:,None]
+  udcf_norm = (udcf0[flt_dt0].mean()*udcf1[flt_dt1].mean())**0.5
+
   bins = np.array([])
   dt = t0 - t1[:,None]
-  flt_t0 = (dt>=-bs/2)*(dt<=bs/2)
-  udcf0 = (y0-mu0)*(y0-mu0)[:,None]
-  udcf1 = (y1-mu1)*(y1-mu1)[:,None]
-  udcf_norm = (udcf0[flt_t0].mean()*udcf1[flt_t0].mean())**0.5
   udcf = (y0-mu0)*(y1-mu1)[:,None]/udcf_norm
   bins = np.append(np.flip(np.arange(-bs/2., lgl, -bs)), np.arange(bs/2., lgh, bs))
 
