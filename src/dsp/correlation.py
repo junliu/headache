@@ -148,8 +148,8 @@ def MDCF_EK(ts0, ts1, bs, lgl=None, lgh=None):
   MDCF_EK(ts0, ts01, bs, lgl=None, lgh=None)
   discrete correlation function via Edelson & Krolik (1988) algorithm.
 
-  ts0 - the first time series (t0, y0, dy0)
-  ts1 - the second time series (t1, y1, dy1)
+  ts0 - the first time series (t0, y0)
+  ts1 - the second time series (t1, y1)
   bs - bin size
   lgl - lower limit for time lag
   lgh - higher limit for time lag
@@ -160,8 +160,8 @@ def MDCF_EK(ts0, ts1, bs, lgl=None, lgh=None):
     errors of coefficients
   """
 
-  t0, y0, dy0 = ts0
-  t1, y1, dy1 = ts1
+  t0, y0 = ts0
+  t1, y1 = ts1
 
   t0 = np.asarray(t0)
   y0 = np.asarray(y0)
@@ -205,7 +205,6 @@ def MDCF_EK(ts0, ts1, bs, lgl=None, lgh=None):
     if True in flag:
       m[i] = flag.sum()
       vdcf[i] = np.mean(udcf[flag])
-#      ddcf[i] = np.std(udcf[flag])/m[i]**0.5 # standard error
       ddcf[i] = np.std(udcf[flag])
 
   return (bins[:-1]+bins[1:])/2., vdcf, ddcf
